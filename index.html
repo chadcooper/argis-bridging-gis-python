@@ -317,7 +317,7 @@ $$\text{Vue elev value} = \left(\frac{64 - 0}{128 - 0}\right) = 0.5$$
                 </section>
 
 				<section>
-                    <pre><code class="python" data-trim >
+                    <pre><code class="python" data-trim>
 terrain_obj.SetTerrainResolution(terr_width, terr_height)  
 elev_file = open(elev_file, "r")
 altitudes = []
@@ -360,6 +360,57 @@ b_object.SetPosition(0, 0, terr_z_elev)
 				<section>
 					<h1>haversine</h1>
 					<h2>Great circle distance</h2>
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+def haversine(lon2, lat2):
+    lon1 = raster_center_x
+    lat1 = raster_center_y
+    lon1, lat1, lon2, lat2 = map(math.radians, 
+                                [lon1, lat1, lon2, lat2])
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = math.sin(dlat/2)**2 + math.cos(lat1) \
+        * math.cos(lat2) * math.sin(dlon/2)**2
+    c = 2 * math.asin(math.sqrt(a))
+    m = 6378 * c
+    return m
+                    </code></pre>
+                </section>
+                
+				<section>
+$$\text{Vue elev value} = \left(\frac{64 - 0}{128 - 0}\right) = 0.5$$               
+$$\z' = \frac{z - d^2}{(2 * r)}
+                </section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+out_hav_raster = arcpy.Raster(self.in_raster) - ((arcpy.Raster(hav_dist_raster) \
+                 * arcpy.Raster(hav_dist_raster)) / (2 * v_utils.EARTH_RADIUS))
+out_hav_raster.save(out_haversine_raster)
+                    </code></pre>
+                </section>
+                
+				<section data-background="./images/flight-path.png">
+				</section>
+                
+				<section data-background="./images/haversine-1.jpg">
+				</section>
+                
+				<section data-background="./images/haversine-2.jpg">
+				</section>
+                
+				<section data-background="./images/haversine-3.jpg">
+				</section>
+                
+				<section data-background="./images/haversine-4.jpg">
+				</section>
+                
+				<section data-background="./images/haversine-5.jpg">
+				</section>
+                
+				<section data-background="./images/cali-coast-0.5.jpg">
 				</section>
 
 				<section data-background="./images/cali-coast-1.jpg">
