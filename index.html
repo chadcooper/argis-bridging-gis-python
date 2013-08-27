@@ -421,11 +421,15 @@ out_raster.save(out_haversine_raster)
                 
 				<section data-background="./images/cali-coast-4.jpg">
 				</section>
-
-				
+                
+				<section data-background="./images/haversine-validation-1.jpg">
+				</section>
+                
+				<section data-background="./images/haversine-validation-2.jpg">
+				</section>
                 
 				<section>
-                    image of cali coast in Vue, rendered
+                    <img src="./images/haversine-validation-3.jpg">
 				</section>
 
 				<section>
@@ -469,25 +473,106 @@ arcpy.ProjectRaster_management(out_haversine_raster,
 					</ol>
 				</section>-->
                 
-				<section data-background="./images/foamy-scene.jpg">
+				<section data-background="./images/nc-abyss.jpg">
 				</section>
 
-				<section>image of kitty hawk raster/abyss (with xsection?)
+				<section data-background="./images/abyss-raster-explanation.jpg">
+				</section>
+                
+				<section data-background="./images/nc-abyss-annotated.jpg">
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+neg_100 = arcpy.sa.Con(in_raster_obj, -100, in_raster, "VALUE = 0")
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/abyss-testing-minus-100.jpg">                      
+				</section>
+                
+				<section>
+                    <img src="./images/beach-slope-notes-bad.jpg">
 				</section>
 
 				<section>
+                    <img src="./images/shoreline-slope-graphic-1.png">
+                    <img class="fragment fade-in" src="./images/shoreline-slope-graphic-2.png">
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+in_raster_props = v_utils.get_raster_props(in_raster)
+# Get string representing extent of in_raster as "XMin, YMin, XMax, YMax"
+str_extent = " ".join([str(v) for v in in_raster_props["Extent"]])
+in_raster_obj = arcpy.Raster(in_raster)
+arcpy.env.extent = str_extent
+arcpy.env.cellSize = in_raster_props["TerrainCellResolution"]
+                    </code></pre>
+                </section>
+
+				<section>
+                    <pre><code class="python" data-trim>
+ones_zeros = arcpy.sa.Con(in_raster_obj, 1, 0, "VALUE > 0")
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/slope-calcs-1.jpg">
 				</section>
 
 				<section>
+                    <pre><code class="python" data-trim>
+extracted_ones = arcpy.sa.ExtractByAttributes(ones_zeros, "VALUE = 1")
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/slope-calcs-2.jpg">
 				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+euc_dist = arcpy.sa.EucDistance(extracted_ones)
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/slope-calcs-3.jpg">
+                </section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+conv_to_hundred = arcpy.sa.Con(euc_dist, 
+                               (euc_dist * (100/-max_elev)), 
+                               euc_dist, "VALUE > 0")
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/slope-calcs-4.jpg">
+                </section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+con_reverse_slope = arcpy.sa.Con(conv_to_hundred_con, 
+                                 conv_to_hundred_con + 100, 
+                                 conv_to_hundred_con, "VALUE < 100")
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/slope-calcs-5.jpg">
+                </section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
+                                    in_raster_obj, con_reverse_slope,
+                                    "VALUE = 100")
+                    </code></pre>
+                    <img class="fragment fade-in" src="./images/slope-calcs-6.jpg">
+                </section>
+                
+				<section data-background="./images/slope-calcs-final.jpg">
+				</section>
+                
+				<section>
+                    <img src="./images/shoreline-slope-graphic-2.png">
+				</section>
+                
+                
+                
+                
+                
+                
+                
 
 				<section>
-				</section>
-
-				<section>
-				</section>
-
-				<section>
+                    
 				</section>
                 
 				<section>
