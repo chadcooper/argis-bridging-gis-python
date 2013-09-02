@@ -180,6 +180,7 @@ ul, ol, div, p {
 }
 .reveal img {
 	box-shadow: none;
+    max-height: 500px;
 }
 .reveal .roll {
 	overflow: visible;

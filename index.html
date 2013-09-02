@@ -121,7 +121,6 @@
 				<section>
 					<h1>Pros</h1>
 					<ul>
-						<h2><li>CAST does 3D</li></h2>
 						<h2><li>Photorealistic</li></h2>
 						<h2><li>Python APIs</li></h2>
 					</ul>
@@ -366,6 +365,10 @@ b_object.SetPosition(0, 0, terr_z_elev)
 				</section>
                 
 				<section>
+                    <img src="./images/haversine-graphic-1.png">
+				</section>
+                
+				<section>
                     <pre><code class="python" data-trim>
 def haversine(lon2, lat2):
     lon1 = raster_center_x
@@ -377,23 +380,50 @@ def haversine(lon2, lat2):
     a = math.sin(dlat/2)**2 + math.cos(lat1) \
         * math.cos(lat2) * math.sin(dlon/2)**2
     c = 2 * math.asin(math.sqrt(a))
-    d = 6378 * c
+    d = 6278 * c
     return d
                     </code></pre>
                 </section>
                 
-				<section>
-                    <img src="./images/haversine-graphic4.png">
-$$z' = \frac{z - d^2}{2r}$$
-                    <pre class="fragment fade-in"><code class="python" data-trim>
-out_raster = arcpy.Raster(orig_raster) - ((arcpy.Raster(hav_raster) \
-                 * arcpy.Raster(hav_raster)) / (2 * 6378))
-out_raster.save(out_haversine_raster)
-                    </code></pre>
-                </section>
-                
-				<section data-background="./images/haversine-1.jpg">
+				<section data-background="./images/cali-coast-0.5.jpg">
 				</section>
+                
+				<section>
+                    <img src="./images/haversine-graphic-2.png">
+				</section>
+                
+				<section>
+                    <img src="./images/haversine-graphic-3.png">
+				</section>
+                
+				
+                
+				<!--<section data-background="./images/haversine-1.jpg">
+				</section>
+                
+				<section>
+                    <img src="./images/haversine-graphic-4.png">
+				</section>
+                
+				<section data-background="./images/flight-path.png">
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+def haversine(lon2, lat2):
+    lon1 = raster_center_x
+    lat1 = raster_center_y
+    lon1, lat1, lon2, lat2 = map(math.radians, 
+                                [lon1, lat1, lon2, lat2])
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = math.sin(dlat/2)**2 + math.cos(lat1) \
+        * math.cos(lat2) * math.sin(dlon/2)**2
+    c = 2 * math.asin(math.sqrt(a))
+    d = 6278 * c
+    return d
+                    </code></pre>
+                </section>-->
                 
 				<section data-background="./images/haversine-2.jpg">
 				</section>
@@ -404,12 +434,25 @@ out_raster.save(out_haversine_raster)
 				<section data-background="./images/haversine-4.jpg">
 				</section>
                 
-				<section data-background="./images/haversine-5.jpg">
-				</section>
+				<!--<section data-background="./images/haversine-5.jpg">
+				</section>-->
                 
 				<section data-background="./images/cali-coast-0.5.jpg">
 				</section>
 
+				<section data-background="./images/cali-coast-1.jpg">
+				</section>
+                
+				<section>
+                    <img src="./images/haversine-graphic-5-scaled.png">
+$$z' = \frac{z - d^2}{2r}$$
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+out_raster = arcpy.Raster(orig_raster) - ((arcpy.Raster(hav_raster) \
+                 * arcpy.Raster(hav_raster)) / (2 * 6278))
+out_raster.save(out_haversine_raster)
+                    </code></pre>
+                </section>
+                
 				<section data-background="./images/cali-coast-1.jpg">
 				</section>
                 
@@ -419,8 +462,8 @@ out_raster.save(out_haversine_raster)
 				<section data-background="./images/cali-coast-3.jpg">
 				</section>
                 
-				<section data-background="./images/cali-coast-4.jpg">
-				</section>
+				<!--<section data-background="./images/cali-coast-4.jpg">
+				</section>-->
                 
 				<section data-background="./images/haversine-validation-1.jpg">
 				</section>
@@ -444,7 +487,7 @@ in_raster_obj = arcpy.Raster(in_raster)
 arcpy.ProjectRaster_management(in_raster_obj, out_raster,
                                hav_output_sr, "BILINEAR", "#", 
                                geo_trans_wgs84)
-# Haversine stuff
+# Haversine conversions
 arcpy.RasterToPoint_conversion(in_elev_ds, ras_to_pts, "VALUE")
 arcpy.CalculateField_management(ras_to_pts, "Hav_Distance", 
                                 expression, "PYTHON", codeblock)  
@@ -452,7 +495,7 @@ arcpy.PointToRaster_conversion(ras_to_pts, "Hav_Distance",
                                hav_dist_raster, "MOST_FREQUENT",
                                "Hav_Distance", in_raster)
 out_raster = arcpy.Raster(orig_raster) - ((arcpy.Raster(hav_raster) \
-                          * arcpy.Raster(hav_raster)) / (2 * 6378))
+                          * arcpy.Raster(hav_raster)) / (2 * 6278))
 out_raster.save(out_haversine_raster)
 arcpy.ProjectRaster_management(out_haversine_raster, 
                                out_haversine_raster_pcs,
@@ -483,6 +526,10 @@ arcpy.ProjectRaster_management(out_haversine_raster,
 				</section>
                 
 				<section>
+                    <img src="./images/shoreline-slope-graphic-4.png">
+				</section>
+                
+				<section>
                     <pre><code class="python" data-trim>
 neg_100 = arcpy.sa.Con(in_raster_obj, -100, in_raster, "VALUE = 0")
                     </code></pre>
@@ -501,7 +548,7 @@ neg_100 = arcpy.sa.Con(in_raster_obj, -100, in_raster, "VALUE = 0")
 				<section>
                     <pre><code class="python" data-trim>
 in_raster_props = v_utils.get_raster_props(in_raster)
-# Get string representing extent of in_raster as "XMin, YMin, XMax, YMax"
+# Get string extent of in_raster as "XMin, YMin, XMax, YMax"
 str_extent = " ".join([str(v) for v in in_raster_props["Extent"]])
 in_raster_obj = arcpy.Raster(in_raster)
 arcpy.env.extent = str_extent
@@ -561,21 +608,62 @@ slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
 				</section>
                 
 				<section>
-                    <img src="./images/shoreline-slope-graphic-2.png">
-				</section>
-                
-                
-                
-                
-                
-                
-                
-
-				<section>
-                    
+                    <img src="./images/shoreline-slope-graphic-3.png">
 				</section>
                 
 				<section>
+                    <img src="./images/vue-ui-scene-radius-sea-level-settings.jpg">
+                    <h2>Scene radius = 6278km</h2>
+                    <h2>Sea level = 100m</h2>
+				</section>
+                
+				<section>
+                    <img src="./images/beach-slope-notes-good.jpg">
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+# Raster prep
+arcpy.Raster(in_elev_ds) * 0.3048
+arcpy.ProjectRaster_management(in_raster, out_raster + "_PCS",
+                               target_sr, "BILINEAR", "#", 
+                               geo_trans_pcs)
+in_raster_props = v_utils.get_raster_props(in_raster)
+in_raster_obj = arcpy.Raster(in_raster)
+# Set environmental properties...
+arcpy.ProjectRaster_management(in_raster_obj, out_raster,
+                               hav_output_sr, "BILINEAR", "#", 
+                               geo_trans_wgs84)
+# Shoreline slope calcs
+ones_zeros = arcpy.sa.Con(in_raster_obj, 1, 0, "VALUE > 0")
+extracted_ones = arcpy.sa.ExtractByAttributes(ones_zeros, "VALUE = 1")
+euc_dist = arcpy.sa.EucDistance(extracted_ones)
+conv_to_hundred = arcpy.sa.Con(euc_dist, 
+                               (euc_dist * (100/-max_elev)), 
+                               euc_dist, "VALUE > 0")
+con_reverse_slope = arcpy.sa.Con(conv_to_hundred_con, 
+                                conv_to_hundred_con + 100, 
+                                conv_to_hundred_con, "VALUE < 100")
+slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
+                                    in_raster_obj, con_reverse_slope,
+                                    "VALUE = 100")
+# Haversine conversions
+arcpy.RasterToPoint_conversion(in_elev_ds, ras_to_pts, "VALUE")
+arcpy.CalculateField_management(ras_to_pts, "Hav_Distance", 
+                                expression, "PYTHON", codeblock)  
+arcpy.PointToRaster_conversion(ras_to_pts, "Hav_Distance", 
+                               hav_dist_raster, "MOST_FREQUENT",
+                               "Hav_Distance", in_raster)
+out_raster = arcpy.Raster(orig_raster) - ((arcpy.Raster(hav_raster) \
+                          * arcpy.Raster(hav_raster)) / (2 * 6278))
+out_raster.save(out_haversine_raster)
+arcpy.ProjectRaster_management(out_haversine_raster, 
+                               out_haversine_raster_pcs,
+                               custom_sr, "BILINEAR")          
+                    </code></pre>
+                </section>
+                
+				<section data-background="./images/shoreline-slope-render.jpg">
 				</section>
                 
 				<section>
@@ -584,16 +672,91 @@ slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
                     <h2 class="fragment fade-in">Key observation points (KOPs)</h2>
 				</section>
                 
-				<section>
+				<section data-transition="fade">
+                    <img src="./images/arcgis-raster-vector-layout-grid.png">
+				</section>
+                
+				<section data-background="./images/vue-wtgs-vue-x-y.jpg">
+				</section>
+                
+				<section data-transition="fade">
+                    <img src="./images/wtgs-utm-measurements.png">
+				</section>
+                
+				<section data-transition="fade">
+                    <img src="./images/wtg-kop-localize-coord-sys.png">
+				</section>
+                
+				<section data-transition="fade">
+                    <img src="./images/wtg-measure-northing-easting-locally.png">
 				</section>
                 
 				<section>
+                    <pre><code class="python" data-trim>
+sr = 'PROJCS["VueGnomonic",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",\
+      SPHEROID["WGS_1984",6378137.0,298.257223563]],\
+      PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],\
+      PROJECTION["Gnomonic"],PARAMETER["False_Easting",0.0],\
+      PARAMETER["False_Northing",0.0],\
+      PARAMETER["Longitude_Of_Center",{0}],\
+      PARAMETER["Latitude_Of_Center",{1}],\
+      UNIT["Meter",1.0]]'.format(gcs_x_center, gcs_y_center)
+                    </code></pre>
+                </section>
+                
+				<section>
+                    <pre><code class="no-highlight" data-trim>               
+SearchCursor (dataset, {where_clause}, {spatial_reference}, 
+              {fields}, {sort_fields})
+                    </code></pre>
+                    <p>
+                    <h3 class="fragment fade-in">spatial_reference: When specified, features will be projected 
+                        on the fly using the spatial_reference provided. Type: Object</h3>
+                </section>
+                
+				<section>
+                    <pre><code class="python" data-trim>              
+def get_wtg_locations(project_path, project_name):
+    """Interate thru WTG featureclass and gather WTG array info"""
+    gdb = os.path.join(project_path, project_name + ".gdb")
+    sr = arcpy.Describe(os.path.join(gdb, 
+                   project_name + "_HavCurvedPCS")).spatialReference
+    rows = arcpy.SearchCursor(os.path.join(gdb, "WTGs"),
+                              "", sr)
+    windfarm_array = []
+    dict_array = []
+
+    for row in rows:
+        windfarm_dict = {}
+        geom = row.shape
+        point = geom.getPart()
+        wtg_id = row.getValue("OBJECTID")
+        windfarm_dict["ID"] = wtg_id
+        windfarm_dict["WtgVueNorthing"] = point.Y
+        windfarm_dict["WtgVueEasting"] = point.X
+        windfarm_array.append([wtg_id, point.Y, point.X])
+        dict_array.append(windfarm_dict)
+        
+    return dict_array
+                    </code></pre>
+                </section>
+                
+				<section data-transition="fade">
+                    <img src="./images/wtg-kop-localize-coord-sys-with-vue-coords.png">
 				</section>
                 
 				<section>
-				</section>
+                    <pre><code class="xml" data-trim>
+<WTG ID="60">
+  <WtgVueNorthing>4280.97208761</WtgVueNorthing>
+  <WtgVueEasting>15692.4514442</WtgVueEasting>
+  <NacelleYaw>0</NacelleYaw>
+</WTG>
+                    </code></pre>
+                </section>
                 
-				<section>
+				<section data-transition="fade">
+                    <img src="./images/wtg-kop-localize-coord-sys-with-vue-coords-KOPs.png">
 				</section>
                 
 				<section>
@@ -602,14 +765,121 @@ slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
                     <h2 class="fragment fade-in">Custom UI via wxPython</h2>
 				</section>
                 
+				<section data-transition="fade">
+                    <img src="./images/ui-create-project.png">
+				</section>
+                
+				<section data-transition="fade">
+                    <img src="./images/ui-kop-infra.png">
+				</section>
+                
+				<section data-transition="fade">
+                    <img src="./images/ui-kop-infra-final-prep.png">
+				</section>
+                
 				<section>
+                    <pre><code class="python" data-trim>
+def updateMessages(self):
+    import re
+    if self.p_project_sr.value:
+      if self.p_project_sr.value.linearUnitName != "Meter":
+        self.p_project_sr.setErrorMessage("The linear units of your " \
+          "projected coordinate system must be meters. Yours is " \
+          "currently " + str(self.p_project_sr.value.linearUnitName) + ".")
+      if self.p_project_sr.value.type == "Geographic":
+        self.p_project_sr.setErrorMessage("You must use a projected " \
+                                          "coordinate system.")
+    if self.p_project_name.value:
+      patt = re.compile(r"(^\d)|(\s)|[\W.-]")
+      if patt.search(str(self.p_project_name.value)):
+        self.p_project_name.setErrorMessage("Your project name " \
+                                       "contains invalid characters.")
+    if self.p_input_raster.value:
+      datum = self.get_datum(self.p_input_raster.value)
+      if datum not in self.acceptable_datums:
+        self.p_input_raster.setErrorMessage("Your datum " \
+                                    + datum + " is unacceptable")
+    return
+                    </code></pre>
+                </section>
+                
+				<section data-transition="fade">
+                    <img src="./images/ui-create-project-sr-error.png">
+				</section>
+                
+                <section>
+                    <h1>VueGen</h1>
+                    <h2 class="fragment fade-in">Middleware</h2>
+                    <h2 class="fragment fade-in">wxPython</h2>
+                    <h2 class="fragment fade-in">Controls</h2>
+                    <h2 class="fragment fade-in">Events</h2>
+                </section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+raw_kop_list = self.get_kops_for_listbox(env.v_root_dir, 
+                                         env.project_name)
+kop_list = [str(e) for e in raw_kop_list]        
+self.kops = wx.ListBox(parent=self, id=0, pos=(20, 20), 
+                       size=(140, 120), choices=kop_list, 
+                       style=wx.LB_MULTIPLE)
+self.kops.SetToolTip(wx.ToolTip("KOP list for current project. " \
+                                "Select \none or more to configure " \
+                                "and queue up"))
+                    </code></pre>
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+self.date_ctrl = wx.DatePickerCtrl(self, -1, size=(110, -1),
+                            style=wx.DP_DROPDOWN | wx.DP_SHOWCENTURY)
+self.date_ctrl.SetToolTip(wx.ToolTip("Date that the simulation " \
+                                     "render should represent."))
+self.time_ctrl = TimeCtrl(self, display_seconds=False,
+                          fmt24hr=False, id=-1, name='timeCtrl',
+                          style=0, useFixedWidthFont=False,
+                          value=datetime.datetime.now().strftime('%X'))
+self.time_ctrl.SetToolTip(wx.ToolTip("Time of day on simulation " \
+                          "date that the simulation should represent."))
+                    </code></pre>
+				</section>
+                
+				<section data-transition="fade">
                     <img src="./images/vuegen.png">
 				</section>
                 
 				<section>
+                    <pre><code class="python" data-trim>
+self.load_config_btn = wx.Button(self, label="Load Config", 
+                                 size=(90, -1))
+self.load_config_btn.Bind(wx.EVT_BUTTON, self.on_open_file, 
+                          self.load_config_btn)
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+def on_open_file(self, event):
+    """Open up existing XML config file"""
+    dlg = wx.FileDialog(
+        self, message="Choose a file",
+        defaultFile="",
+        wildcard="XML files (*.xml)|*.xml",
+        style=wx.OPEN | wx.CHANGE_DIR)
+    if dlg.ShowModal() == wx.ID_OK:
+        f = dlg.GetPath()
+        self.parse_populate_xml(f)
+    dlg.Destroy()
+                    </code></pre>
 				</section>
                 
 				<section>
+                     <pre><code class="python" data-trim>
+self.help_btn_beach = wx.BitmapButton(self, -1, help_icon, style=0)
+self.help_btn_beach.Bind(wx.EVT_MOTION, self.on_mouseover_help)
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+def on_mouseover_help(self, event):
+    """Change cursor to hand when hover over help icons"""
+    wx.SetCursor(wx.StockCursor(wx.CURSOR_HAND))
+                    </code></pre>
 				</section>
                 
 				<section data-transition="fade">
@@ -620,6 +890,41 @@ slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
 				<section data-transition="fade">
                     <h1 class="huge">XML</h1>
 				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+viesore_element = ElementTree.Element("VIESORE.Configuration")
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+terrain_dict = params["Terrain"]
+terrain_element = ElementTree.SubElement(viesore_element, "Terrain")
+terrain_file_element = ElementTree.SubElement(terrain_element, 
+                                              "TerrainFile")
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+kops = params["KopArray"]
+for kop in kops:
+    kop_element = ElementTree.SubElement(viesore_element, "KopArray", 
+                                         {"ID": str(kop.get("ID"))})                  
+    kop_beach_color_element = ElementTree.SubElement(kop_element, 
+                                                     "BeachColor")
+    kop_beach_color_element.text = str(kop.get("BeachColor"))
+    ...
+    wtgs = kop.get("WTG")
+    for wtg in wtgs:
+        wtg_element = ElementTree.SubElement(kop_element, "WTG", 
+                                             {"ID": str(wtg["ID"])})
+        wtg_vue_n_element = ElementTree.SubElement(wtg_element, 
+                                                "WtgVueNorthing")
+        wtg_vue_n_element.text = str(wtg["WtgVueNorthing"])
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+f = open(os.path.join(path, name + ".xml"), "w")
+f.write(viesore_element)
+f.close()
+                    </code></pre>
+				</section>
+
                 
 				<section data-transition="fade">
                     <pre><code class="xml" data-trim>
@@ -677,12 +982,95 @@ slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
 				</section>
                 
 				<section>
+                    <pre><code class="python" data-trim>
+config = ConvertXmlToDict(f)
+root = config["VIESORE.Configuration"]
+project = root["Project"]
+terrain = root["Terrain"]
+kops = root["KopArray"]
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+terr = SelectByName("TemplateTerrain")
+b_object = GetSelectedObjectByIndex(0)
+b_object.ResizeAxis(0, 0, 0, True)
+terrain_obj = b_object.ToTerrain()
+terrain_obj.SetTerrainResolution(terr_width, terr_height)
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+altitudes = []
+with open(elev_file, "r") as elev_file:
+    line = elev_file.readline()
+    if not line:
+        break
+    bits = line.split(",")
+    alt = []
+    for x in bits:
+        alt.append(float(x))
+    altitudes.append(alt)
+# Push our elevation data into the terrain object
+terrain_obj.SetTerrainAltitudes(altitudes)  
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+ 
+                    </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+                        
+                    </code></pre>
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+camera_northing = float(kop.get("KopVueNorthing"))
+camera_easting = float(kop.get("KopVueEasting"))
+camera_zpos = float(kop.get("CameraZPosition"))
+camera_yaw = float(kop.get("CameraYaw"))
+camera_pitch = float(kop.get("CameraPitch"))
+            
+select_camera = SelectByName("Main camera")
+camera = GetSelectedObjectByIndex(0)            
+camera.SetPosition(camera_easting, camera_northing, camera_zpos)
+Refresh()
+camera.SetRotationAngles(camera_pitch, 0, camera_yaw, true)
+                    </code></pre>
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+import_wtg = ImportObject(wtg, 0, True, -1)
+Select(import_wtg)
+wtg_height = int(get_object_size(import_wtg)[2])
+c = Copy()
+d = Delete()
+wtgs = kop["WTG"]
+for wtg in wtgs:
+    wtg_northing = float(wtg.get("WtgVueNorthing"))
+    wtg_easting = float(wtg.get("WtgVueEasting"))
+    wtg_yaw = float(wtg.get("NacelleYaw"))
+    wtg_name = str(wtg.get("ID"))
+    # Paste the WTG
+    p = Paste()
+    # Position (move/rotate) the pasted WTG
+    curr_wtg = GetSelectedObjectByIndex(0)
+    curr_wtg.Move(wtg_easting, wtg_northing, (wtg_height/2) + 100)
+    curr_wtg.SetRotationAnglesV((0, 0, wtg_yaw), True)
+    curr_wtg.SetName(wtg_name)
+                    </code></pre>
+				</section>
+                
+				<section>
+                    <pre><code class="python" data-trim>
+
+                    </code></pre>
 				</section>
                 
 				<section>
 				</section>
                 
 				<section>
+				</section>
+                
+				<section>
+                    
 				</section>
                 
                 <section>
