@@ -346,14 +346,12 @@ b_object.SetPosition(0, 0, terr_z_elev)
                 <!--<section data-background="./images/sphere-tangent-plane.jpg">
                 </section>-->
                 
-                <section>
-                <p><img src="./images/terrain-bad.png">
-                </p>
+                <section data-transition="fade">
+                    <img src="./images/terrain-bad.png">
                 </section>
                 
-                <section>
-                <p><img src="./images/terrain-hav.png">
-                </p>
+                <section data-transition="fade">
+                    <img src="./images/terrain-hav.png">
                 </section>
 
 				<section>
@@ -364,7 +362,7 @@ b_object.SetPosition(0, 0, terr_z_elev)
 				<section data-background="./images/flight-path.png">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/haversine-graphic-1.png">
 				</section>
                 
@@ -388,42 +386,13 @@ def haversine(lon2, lat2):
 				<section data-background="./images/cali-coast-0.5.jpg">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/haversine-graphic-2.png">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/haversine-graphic-3.png">
 				</section>
-                
-				
-                
-				<!--<section data-background="./images/haversine-1.jpg">
-				</section>
-                
-				<section>
-                    <img src="./images/haversine-graphic-4.png">
-				</section>
-                
-				<section data-background="./images/flight-path.png">
-				</section>
-                
-				<section>
-                    <pre><code class="python" data-trim>
-def haversine(lon2, lat2):
-    lon1 = raster_center_x
-    lat1 = raster_center_y
-    lon1, lat1, lon2, lat2 = map(math.radians, 
-                                [lon1, lat1, lon2, lat2])
-    dlon = lon2 - lon1
-    dlat = lat2 - lat1
-    a = math.sin(dlat/2)**2 + math.cos(lat1) \
-        * math.cos(lat2) * math.sin(dlon/2)**2
-    c = 2 * math.asin(math.sqrt(a))
-    d = 6278 * c
-    return d
-                    </code></pre>
-                </section>-->
                 
 				<section data-background="./images/haversine-2.jpg">
 				</section>
@@ -434,16 +403,13 @@ def haversine(lon2, lat2):
 				<section data-background="./images/haversine-4.jpg">
 				</section>
                 
-				<!--<section data-background="./images/haversine-5.jpg">
-				</section>-->
-                
 				<section data-background="./images/cali-coast-0.5.jpg">
 				</section>
 
 				<section data-background="./images/cali-coast-1.jpg">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/haversine-graphic-5-scaled.png">
 $$z' = \frac{z - d^2}{2r}$$
                     <pre class="fragment fade-in"><code class="python" data-trim>
@@ -462,16 +428,13 @@ out_raster.save(out_haversine_raster)
 				<section data-background="./images/cali-coast-3.jpg">
 				</section>
                 
-				<!--<section data-background="./images/cali-coast-4.jpg">
-				</section>-->
-                
 				<section data-background="./images/haversine-validation-1.jpg">
 				</section>
                 
 				<section data-background="./images/haversine-validation-2.jpg">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/haversine-validation-3.jpg">
 				</section>
 
@@ -503,19 +466,6 @@ arcpy.ProjectRaster_management(out_haversine_raster,
                     </code></pre>
                 </section>
                 
-                <!--<section>    
-					<ol>
-						<h3><li>Z units to meters, if needed</li></h3>
-						<h3><li>Project to PCS, if needed</li><h3>
-						<h3><li>Get raster properties</li><h3>
-                        <h3><li>Project to GCS for haversine</li><h3>
-                        <h3><li>Calc haversine distances</li><h3>
-                        <h3><li>Create raster of haversine distances</li><h3>
-                        <h3><li>Convert flat raster to haversine-corrected raster</li><h3>
-                        <h3><li>Raster to text file</li><h3>
-					</ol>
-				</section>-->
-                
 				<section data-background="./images/nc-abyss.jpg">
 				</section>
 
@@ -525,7 +475,7 @@ arcpy.ProjectRaster_management(out_haversine_raster,
 				<section data-background="./images/nc-abyss-annotated.jpg">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/shoreline-slope-graphic-4.png">
 				</section>
                 
@@ -536,11 +486,11 @@ neg_100 = arcpy.sa.Con(in_raster_obj, -100, in_raster, "VALUE = 0")
                     <img class="fragment fade-in" src="./images/abyss-testing-minus-100.jpg">                      
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/beach-slope-notes-bad.jpg">
 				</section>
 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/shoreline-slope-graphic-1.png">
                     <img class="fragment fade-in" src="./images/shoreline-slope-graphic-2.png">
 				</section>
@@ -607,17 +557,17 @@ slope_plus_orig_land = arcpy.sa.Con(con_reverse_slope, con_reverse_slope + \
 				<section data-background="./images/slope-calcs-final.jpg">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/shoreline-slope-graphic-3.png">
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/vue-ui-scene-radius-sea-level-settings.jpg">
                     <h2>Scene radius = 6278km</h2>
                     <h2>Sea level = 100m</h2>
 				</section>
                 
-				<section>
+				<section data-transition="fade">
                     <img src="./images/beach-slope-notes-good.jpg">
 				</section>
                 
@@ -880,6 +830,20 @@ def on_mouseover_help(self, event):
     """Change cursor to hand when hover over help icons"""
     wx.SetCursor(wx.StockCursor(wx.CURSOR_HAND))
                     </code></pre>
+                    <pre class="fragment fade-in"><code class="python" data-trim>
+def on_edit_scene(self, event):
+    ...
+    if self.edit_session_kop.get("NacelleOrientation") == "Random":
+        self.wtg_dir_slider.SetValue(int(self.edit_session_kop.get( \
+                                            "RandomNacelleCount")))
+        self.wtg_dir_rand_degrees_slider.SetValue(int( \
+             self.edit_session_kop.get("NacelleOrientRandomness")))
+        self.wtg_dir_random_slider.Enable()
+        self.wtg_dir_rand_degrees_slider.Enable()
+    if self.edit_session_kop.get("WindSpeed") != "Calm":
+        self.wind_directions_radiobox.Enable()
+        self.clouds_radiobox.Enable()
+                    </code></pre>
 				</section>
                 
 				<section data-transition="fade">
@@ -1010,12 +974,6 @@ with open(elev_file, "r") as elev_file:
 # Push our elevation data into the terrain object
 terrain_obj.SetTerrainAltitudes(altitudes)  
                     </code></pre>
-                    <pre class="fragment fade-in"><code class="python" data-trim>
- 
-                    </code></pre>
-                    <pre class="fragment fade-in"><code class="python" data-trim>
-                        
-                    </code></pre>
 				</section>
                 
 				<section>
@@ -1059,14 +1017,25 @@ for wtg in wtgs:
                 
 				<section>
                     <pre><code class="python" data-trim>
-
+def render_image(out_file):
+    """Renders main view out to jpeg"""
+    SetRenderOutput(VuePython.RO_Disk, out_file)
+    SetRenderQuality(VuePython.PRS_Final)
+    SetPictureWidth(1920)
+    Render(True)
                     </code></pre>
 				</section>
                 
-				<section>
+				<!--<section>
+                    <pre><code class="python" data-trim>
+
+                    </code></pre>
+				</section>-->
+                
+				<section data-background="./images/render-kitty-hawk-1.jpg">
 				</section>
                 
-				<section>
+				<section data-background="./images/render-preview-vsta-1.jpg">
 				</section>
                 
 				<section>
@@ -1085,6 +1054,7 @@ for wtg in wtgs:
 					<h1>THE END</h1>
 					<h3>Chad Cooper</h3>
                     <h3>chad@cast.uark.edu</h3>
+                    <h3>https://speakerdeck.com/supercooper<h3>
                     <h3>https://github.com/chadcooper/argis-bridging-gis-python</h3>				
                 </section>
 
